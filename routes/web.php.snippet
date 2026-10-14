@@ -1,0 +1,34 @@
+<?php
+
+use App\Http\Controllers\Student\AttendanceController;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+/*
+ | ADD these routes inside your existing routes/web.php.
+ | Keep your current auth routes and any existing dashboard route.
+ | If a route name/path already exists, merge or adapt instead of duplicating it.
+ */
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::get('/attendance', [AttendanceController::class, 'index'])
+        ->name('attendance.index');
+
+    Route::post('/attendance/check-in', [AttendanceController::class, 'checkIn'])
+        ->name('attendance.check-in');
+
+    Route::get('/grades', fn () => Inertia::render('Grades/Index'))
+        ->name('grades.index');
+
+    Route::get('/class-schedule', fn () => Inertia::render('Schedule/Index'))
+        ->name('class-schedule.index');
+
+    Route::get('/enrollment', fn () => Inertia::render('Enrollment/Index'))
+        ->name('enrollment.index');
+
+    Route::get('/assignments', fn () => Inertia::render('Assignments/Index'))
+        ->name('assignments.index');
+});

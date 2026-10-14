@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+button,
+a[role="button"] {
+    transition-property: transform, color, background-color, border-color, box-shadow, opacity;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+button:not(:disabled):hover,
+a[role="button"]:hover {
+    transform: translateY(-1px);
+}
+
+button:not(:disabled):active,
+a[role="button"]:active {
+    transform: translateY(0) scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    button,
+    a[role="button"] {
+        transition-duration: 0.01ms;
+    }
+
+    button:not(:disabled):hover,
+    button:not(:disabled):active,
+    a[role="button"]:hover,
+    a[role="button"]:active {
+        transform: none;
+    }
+}
